@@ -1,0 +1,37 @@
+APACHE SERVER
+
+
+apt update    
+apt install apache2       
+systemctl status apache2    provjera da li je apache aktivan
+ufw allow 'Apache Full'     propustanje portova za web kroz firewall
+ufw status                 provjera statusa firewall
+mkdir -p /var/www/neki_folder      putanja gdje ce biti stanica smjestena  document root
+vim /var/www/neki_folder/index.html     index.html je stranica
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to example.com</title>            html stranica
+  </head>
+  <body>
+    <h1>Success! example.com home page!</h1>
+  </body>
+</html>
+
+chown -R www-data: /var/www/neki_folder     promjena vlasnika foldera neki_folder
+vim /etc/apache2/sites-available/asioso.conf      konfiguracioni fajl za stranicu
+a2ensite asioso.conf          komandom e2ensite pravim simbolicki link za asioso.conf
+apachectl configtest          provjeravanje sintakse
+a2dissite 000-default.conf     da diseblujem difoltnu stranicu
+systemctl restart apache2      restart servera
+
+
+AUTENTIFIKACIJA PRILIKOM ULAKA NA STRANICU
+
+
+apt install apache2-utils   
+htpasswd -c /etc/apache2/.htpasswd        kreiranje pasvodr fajla
+htpasswd /etc/apache2/.htpasswd           dodavanje novih korisnika bez opcije c
+cat /etc/apache2/.htpasswd                ispisivanje sadrzaja fajla .htpasswd
